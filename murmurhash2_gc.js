@@ -36,8 +36,8 @@ function murmurhash2_32_gc(str, seed) {
   }
 
   l === 3 && (h ^= (str.charCodeAt(i + 2) & 0xff) << 16);
-  l >= 2 && (h ^= (str.charCodeAt(i + 1) & 0xff) << 8);
-  l >= 1 && (h ^= (str.charCodeAt(i) & 0xff)) && (h = (((h & 0xffff) * 0x5bd1e995) + ((((h >>> 16) * 0x5bd1e995) & 0xffff) << 16)));
+  l >= 2 && l < 3 && (h ^= (str.charCodeAt(i + 1) & 0xff) << 8);
+  l >= 1 && l < 3 && (h ^= (str.charCodeAt(i) & 0xff)) && (h = (((h & 0xffff) * 0x5bd1e995) + ((((h >>> 16) * 0x5bd1e995) & 0xffff) << 16)));
 
   h ^= h >>> 13;
   h = (((h & 0xffff) * 0x5bd1e995) + ((((h >>> 16) * 0x5bd1e995) & 0xffff) << 16));
