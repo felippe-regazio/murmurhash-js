@@ -41,16 +41,18 @@ function murmurhash3_32_gc(key, seed) {
 	
 	k1 = 0;
 	
-	switch (remainder) {
-		case 3: k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
-		case 2: k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
-		case 1: k1 ^= (key.charCodeAt(i) & 0xff);
-		
-		k1 = (((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff;
-		k1 = (k1 << 15) | (k1 >>> 17);
-		k1 = (((k1 & 0xffff) * c2) + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff;
-		h1 ^= k1;
-	}
+  l === 3 && (h ^= (str.charCodeAt(i + 2) & 0xff) << 16);
+  l >= 2 && l < 3 && (h ^= (str.charCodeAt(i + 1) & 0xff) << 8);
+  l >= 1 && l < 3 && (h ^= (str.charCodeAt(i) & 0xff)) && (h = (((h & 0xffff) * 0x5bd1e995) + ((((h >>> 16) * 0x5bd1e995) & 0xffff) << 16)));
+
+	remainder === 3 && (k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16);
+	remainder >= 2 && remainder < 3 && (k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8);
+	remainder >= 1 && remainder < 3 && (k1 ^= (key.charCodeAt(i) & 0xff));
+
+	k1 = (((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff;
+	k1 = (k1 << 15) | (k1 >>> 17);
+	k1 = (((k1 & 0xffff) * c2) + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff;
+	h1 ^= k1;
 	
 	h1 ^= key.length;
 
